@@ -34,21 +34,25 @@ assets/img/           Images (see the warning below)
 .vscode/              Live Server + Figma extension recommendations
 ```
 
-## The header logo morph
+## Home page effects
 
-The "Charlene Lee" lettering and the c·l·l mark are vectors exported from your Figma file
-(Experimentation page: nodes 31:1104 and 31:1073). The header in every page holds one SVG with each
-letter as its own `<path>`:
+**Typing tagline.** The line under your name types, pauses, deletes and moves to the next phrase.
+Edit the phrases in `index.html`, in the `data-phrases="…"` attribute, with each one separated by `|`.
+Speeds are at the bottom of the header section in `assets/js/main.js` (`TYPE`, `DELETE`, `HOLD`).
 
-- `class="fade"` letters (h, a, r, e, n, e, e, e) fade and shrink away
-- `class="keep"` letters (C, l, L) slide left by `data-to` units
-- two `class="dot"` circles appear between them
+**Logo: "Charlene Lee" → c·l·l.** One SVG in the header of every page holds both:
+- `.word`: the "Charlene Lee" lettering (Figma 31:1104), one `<g class="ltr">` per letter (that's what makes each letter hop on hover)
+- `.mark`: the exact c·l·l logo (Figma 31:1073)
 
-`assets/js/main.js` (top section) drives it from the scroll position. On the home page the logo starts
-over `.name-slot` in the hero and docks into the header. On other pages it's c·l·l from the start.
-To tune it, change `MARK_H` (docked height, in px) or the `range(p, 0.3, 0.9)` window that controls when the letters morph.
+The name scrolls like normal text. Only in the last `LOGO_ZONE` px before the top does it shrink and morph:
+the **C** slides in as the c, the **L** of Lee slides left (`data-to="-90"`) to become the right-hand l,
+the other letters fade, and the middle l and dots fade in on their own. At the very end the C and L
+hand over to the logo's own shapes, so the docked mark is exactly your c·l·l.
 
-The big doodle behind the hero is `assets/img/doodle.svg` (Figma node 29:722). It stays put while the cards scroll over it.
+**Nav docking.** Works / Archive / About Me / Resume sit in the hero (over `.nav-slot`), scroll up with the page,
+and dock into the top bar beside c·l·l once they reach it (`NAV_ZONE`). On Archive and About everything is docked from the start.
+
+The big doodle behind the hero is `assets/img/doodle.svg` (Figma 29:722). It stays in place while the cards scroll over it.
 
 ## Design tokens (also handy for Figma variables)
 

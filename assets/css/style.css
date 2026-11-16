@@ -28,10 +28,11 @@
   --fs-display: clamp(2.5rem, 5.4vw, 4rem);
 
   /* layout */
-  --max: 1320px;
+  --max: 1440px;
   --header-h: 72px;
+  --nav-gap: 50px;       /* space between nav links in the hero (Figma) */
   --lettering-w: 350px;  /* "Charlene Lee" width in the hero */
-  --gutter: clamp(16px, 5vw, 64px);
+  --gutter: clamp(16px, 8.3vw, 120px);
   --sidebar: 180px;
   --radius: 4px;
 }
@@ -76,76 +77,89 @@ ul, ol { padding: 0; list-style: none; }
   padding-inline: var(--gutter);
 }
 
-/* ---------- header + morphing logo ---------- */
+/* ---------- header: morphing logo + docking nav ---------- */
 
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 20;
   height: var(--header-h);
-  transition: background-color 0.3s, box-shadow 0.3s;
+  pointer-events: none;            /* only the logo + links take clicks */
 }
 
-.site-header.is-stuck {
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
+/* the frosted bar fades in once the logo has docked */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--line);
+  opacity: var(--bar, 0);
 }
 
-.header-inner {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
+.header-inner { position: relative; height: 100%; }
 
-/* The logo is positioned by main.js: it starts as the big "Charlene Lee" in the hero
-   and travels up into the header, turning into c·l·l on the way. */
-.logo {
+/* Logo and nav are positioned by main.js. They start in the hero (over .name-slot and
+   .nav-slot), ride up with the page, and dock into the bar when they reach the top. */
+.logo,
+.nav {
   position: fixed;
   left: 0;
   top: 0;
-  width: var(--lettering-w);
   transform-origin: 0 0;
   will-change: transform;
-  color: var(--ink);
+  pointer-events: auto;
 }
+
+.logo { width: var(--lettering-w); color: var(--ink); }
 .lettering { display: block; width: 100%; height: auto; overflow: visible; fill: #000; }
-.lettering path,
-.lettering .dot { transform-box: fill-box; transform-origin: center; }
-.lettering .dot { opacity: 0; }
+.lettering path { transform-box: fill-box; transform-origin: center; }
+.lettering .mark path { opacity: 0; }
 
-/* before JS runs (or without it) show the compact mark in the header */
-html:not(.js) .logo { position: absolute; left: var(--gutter); top: calc((var(--header-h) - 22px) / 2); transform: scale(0.407); }
-html:not(.js) .lettering .fade { opacity: 0; }
-html:not(.js) .lettering .keep[data-to="-51"] { transform: translateX(-51px); }
-html:not(.js) .lettering .keep[data-to="-129"] { transform: translateX(-129px); }
-html:not(.js) .lettering .dot { opacity: 1; }
-
-/* nav: a hand-drawn squiggle (same pen as the lettering) underlines the hovered / current link */
-.nav { display: flex; gap: clamp(18px, 3vw, 32px); font-size: var(--fs-sm); }
-.nav a {
-  position: relative;
-  color: var(--muted);
-  padding-block: 6px;
-  transition: color 0.2s;
+/* hover: each letter of "Charlene Lee" gives a little hop */
+.lettering .ltr {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 0.35s cubic-bezier(.3,1.6,.5,1);
 }
+.lettering .ltr .hit { fill: transparent; }
+.logo:not(.is-docked) .lettering .ltr:hover { transform: translateY(-10%) rotate(-6deg); }
+.logo.is-docked:hover .mark { animation: nod 0.5s ease; }
+@keyframes nod { 40% { transform: translate(0.4px, 3.6px) scale(1.89) rotate(-3deg); } }
+
+/* nav links */
+.nav {
+  display: flex;
+  gap: var(--nav-gap);
+  font-size: 1rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.nav a { position: relative; color: var(--ink); padding-block: 4px; }
+
+/* a hand-drawn squiggle (same pen as the lettering) underlines the hovered / current link */
 .nav a::after {
   content: "";
   position: absolute;
   left: -3px;
   right: -3px;
-  bottom: -2px;
+  bottom: -3px;
   height: 7px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.5C8 1.5 12 6 19 3.5S30 1 37 4s13 .5 22-1' fill='none' stroke='%23232323' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
   clip-path: inset(0 100% 0 0);
   transition: clip-path 0.45s cubic-bezier(.6,.1,.2,1);
 }
-.nav a:hover,
-.nav a[aria-current="page"] { color: var(--ink); }
 .nav a:hover::after,
 .nav a[aria-current="page"]::after { clip-path: inset(0 0 0 0); }
+
+/* before JS runs (or without it): everything already docked */
+html:not(.js) .site-header::before { opacity: 1; }
+html:not(.js) .logo { left: var(--gutter); top: 22px; transform: scale(0.48); }
+html:not(.js) .lettering .word { opacity: 0; }
+html:not(.js) .lettering .mark path { opacity: 1; }
+html:not(.js) .nav { left: auto; right: var(--gutter); top: 24px; font-size: 0.875rem; }
 
 .page { padding-top: var(--header-h); }
 
@@ -185,16 +199,16 @@ html:not(.js) .lettering .dot { opacity: 1; }
 
 .hero {
   position: relative;
-  padding-top: clamp(28px, 4vw, 40px);
+  padding-top: clamp(16px, 2.2vw, 30px);
 }
 
-/* the big doodle: decorative, fixed in place behind the hero and the first row of work */
+/* the big doodle: decorative, fixed in place behind the hero */
 .hero-doodle {
   position: absolute;
   z-index: 0;
-  top: clamp(-40px, -2vw, -10px);
-  right: calc(var(--gutter) + 2%);
-  width: clamp(220px, 37vw, 470px);
+  top: clamp(-50px, -3vw, -10px);
+  right: calc(var(--gutter) + 3%);
+  width: clamp(220px, 30vw, 430px);
   height: auto;
   pointer-events: none;
   user-select: none;
@@ -202,37 +216,59 @@ html:not(.js) .lettering .dot { opacity: 1; }
 
 .hero > *:not(.hero-doodle) { position: relative; z-index: 1; }
 
-.hello { font-size: var(--fs-base); color: var(--muted); }
+.hello { font-size: var(--fs-base); color: var(--ink); }
 
 /* reserves the space the "Charlene Lee" logo occupies before you scroll */
 .name-slot {
   width: min(var(--lettering-w), 100%);
   aspect-ratio: 350 / 54;
-  margin-top: clamp(28px, 4vw, 40px);
+  margin-top: clamp(28px, 3vw, 40px);
 }
 
 .tagline {
   font-family: var(--font-grotesk);
   font-weight: 400;
-  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
-  line-height: 1.25;
+  font-size: clamp(1.5rem, 2.9vw, 2.1875rem);  /* 35px in Figma */
+  line-height: 1.3;
   letter-spacing: -0.01em;
   color: var(--muted);
-  margin-top: 8px;
-  max-width: 20ch;
+  margin-top: 6px;
+  min-height: 1.3em;
 }
-@media (min-width: 700px) { .tagline { max-width: none; } }
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-left: 3px;
+  background: currentColor;
+  vertical-align: -0.08em;
+  animation: blink 1s steps(1) infinite;
+}
+.tagline.is-typing .caret { animation: none; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: clamp(80px, 15vw, 230px);
+}
 
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px clamp(40px, 7vw, 96px);
-  margin-top: clamp(80px, 13vw, 190px);
+  gap: 16px clamp(32px, 4.2vw, 60px);
   font-size: var(--fs-base);
   line-height: 1.3;
 }
 .hero-meta .k { color: var(--muted); margin-bottom: 6px; }
 .hero-meta .v { color: var(--ink); }
+
+/* empty box the nav sits over until it docks; main.js sizes it to the nav */
+.nav-slot { height: 29px; }
 
 /* ---------- home: works grid ---------- */
 
@@ -302,6 +338,7 @@ a.work-card:hover .thumb img { transform: scale(1.025); }
 @media (max-width: 700px) {
   .work-grid { grid-template-columns: 1fr; }
   .hero-doodle { opacity: 0.55; top: 24px; width: 58vw; }
+  :root { --nav-gap: 22px; }
 }
 
 /* ---------- home: statement ---------- */
@@ -530,6 +567,7 @@ figcaption { margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .nav a::after { transition: none; }
+  .lettering .ltr { transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .caret { animation: none; }
   * { transition: none !important; }
