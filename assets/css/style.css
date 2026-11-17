@@ -222,23 +222,36 @@ html:not(.js) .contact-dot { display: none; }
   width: clamp(220px, 31.25vw, 450px);
 }
 .doodle svg { display: block; width: 100%; height: auto; overflow: visible; }
-.doodle-base { fill: var(--doodle); }
-.doodle-ink { fill: var(--ink-2); }
+.doodle { pointer-events: none; }                  /* only the outline-shaped area below reacts */
+.doodle-hit { fill: transparent; pointer-events: all; cursor: default; }
+.doodle-base { fill: var(--doodle); pointer-events: none; }
 
+/* dark c · l · l: hidden until hover, and fully gone again afterwards */
+.doodle-ink {
+  fill: var(--ink-2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.doodle:hover .doodle-ink,
+.doodle.is-drawn .doodle-ink { opacity: 1; transition: none; }
+
+/* each "pen" is a thick stroke in a mask that reveals one dark letter as it's drawn.
+   Flat (butt) ends that start just outside the letter, so nothing shows before or after. */
 .doodle .pen {
   fill: none;
   stroke: #fff;
-  stroke-width: 30;
-  stroke-linecap: round;
+  stroke-width: 34;
+  stroke-linecap: butt;
   stroke-linejoin: round;
-  stroke-dasharray: 1;
+  stroke-dasharray: 1 2;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.3s ease-in;           /* un-draw: quick, all at once */
+  transition: stroke-dashoffset 0s linear 0.25s;      /* reset once the fade-out has finished */
 }
 .doodle:hover .pen,
 .doodle.is-drawn .pen {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset var(--t) cubic-bezier(.45,.05,.4,1) var(--d);  /* draw: one after another */
+  transition: stroke-dashoffset var(--t) cubic-bezier(.45,.05,.4,1) var(--d);  /* left to right, one after another */
 }
 
 .hero > *:not(.doodle) { position: relative; z-index: 1; }

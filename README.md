@@ -55,7 +55,9 @@ for the hover hop) and `.mark` (the c·l·l logo).
 
 **Doodle hover.** The doodle is inline in `index.html` (Figma 29:722). Hovering it draws out the c · l · l on her face in
 dark grey, letter by letter (Figma 43:1623). Each dark letter is revealed by a "pen" stroke inside a `<mask>`, and the
-timing is in each pen's `--d` (delay) and `--t` (duration). On touch screens, a tap toggles it.
+timing is in each pen's `--d` (delay) and `--t` (duration). Pens follow the stroke direction: the c from its
+top tip around, each dot as a loop, each l down the stem and out along the foot. Only the outline-shaped `.doodle-hit`
+path responds to the mouse, so the empty corners of the doodle's box don't trigger it. On touch screens, a tap toggles it.
 
 ## Design tokens (also handy for Figma variables)
 
