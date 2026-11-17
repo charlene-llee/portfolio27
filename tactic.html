@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TACTIC — Charlene Lee</title>
+  <meta name="description" content="TACTIC: a browser rage-platformer where each obstacle is built around a different way a tic can present in Tourette Syndrome.">
+  <link rel="icon" href="assets/img/doodle.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Inter+Tight:wght@400&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body data-page="works">
+
+  <header class="site-header" data-header>
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html" aria-label="Charlene Lee — home" data-logo>
+        <svg class="lettering" viewBox="0 0 350 54" aria-hidden="true">
+          <!-- "Charlene Lee" lettering (Figma 31:1104). Each letter sits in its own <g class="ltr"> for the hover wiggle. -->
+          <g class="word">
+            <g class="ltr"><path class="keep" data-to="0" d="M28.5276 40.5411C30.6489 38.403 31.2615 38.2589 31.5625 38.0939C31.8635 37.9289 34.2863 37.1633 35.1577 38.1392C40.7409 44.3922 26.3674 52.0877 19.6841 53.6141C11.7245 55.432 3.80516 50.6655 1.39008 42.7105C-1.93224 31.7671 0.775562 19.2644 8.71154 11.4044C15.3412 4.83825 25.351 4.29446 31.2941 11.444C32.885 13.3578 33.9386 15.6694 32.1696 17.2924C28.8043 20.3799 23.8725 9.31966 15.1739 15.457C9.10405 19.7397 4.57595 31.112 9.10405 41.1529C12.139 47.8828 19.5295 46.1513 23.0647 44.212C24.7433 43.2911 27.1762 41.9032 28.5276 40.5411Z"/></g>
+            <g class="ltr"><path class="fade" d="M65.7612 37.4747C65.2947 46.2142 69.7945 50.7638 65.1438 52.4785C57.1183 55.424 57.5299 37.1843 57.7494 32.0263C52.5088 37.0183 49.4221 43.1997 46.6783 49.9341C45.9786 51.635 43.8111 52.8934 42.1099 52.7551C40.7792 52.6583 38.6802 50.4319 38.9546 48.7172L46.0198 3.9131C46.3079 2.06009 48.1462 0.068794 49.4907 -0.000348157C51.6582 -0.0971471 53.3456 2.08774 53.0575 4.4524L50.2177 27.532C52.5225 25.9694 54.4843 24.4207 56.8576 23.3282C60.548 21.6135 64.8832 24.1164 65.4731 28.016C65.9395 31.1136 65.9258 34.225 65.7612 37.4609V37.4747Z"/></g>
+            <g class="ltr"><path class="fade" d="M89.9754 45.3566L85.1601 50.6944C84.09 51.8837 80.6877 52.6304 79.2061 52.2294C70.9886 49.9753 71.8666 34.8885 76.4761 27.7392C79.1101 23.6598 83.5824 21.5303 88.1371 22.678C91.7314 23.5907 96.2997 26.9787 96.1351 31.5144C95.9431 36.7968 96.4507 41.2911 99.9764 45.3705C100.841 46.3799 99.9764 49.5328 98.9475 50.321C97.85 51.1507 94.9827 51.0954 93.9538 49.9062L89.9754 45.3566ZM81.1816 43.7525C84.5427 39.1892 86.2713 35.096 87.7804 30.339C85.3659 28.9838 82.869 30.3251 81.895 32.8696C80.5917 36.2852 80.1527 40.005 81.1816 43.7525Z"/></g>
+            <g class="ltr"><path class="fade" d="M128.319 23.328C130.665 29.371 121.501 28.2647 117.591 36.2991C113.475 44.7621 116.589 52.1188 110.773 52.0082C109.428 51.9805 107.082 49.8233 107.014 48.15L105.985 24.3098C105.916 22.7334 108.043 20.5347 109.332 20.5208C114.614 20.4932 111.76 27.8637 113.818 27.9743C117.097 24.6555 126.055 17.5339 128.305 23.3142L128.319 23.328Z"/></g>
+            <g class="ltr"><path class="fade" d="M146.208 50.7224C143.917 52.0223 140.625 52.4371 138.443 51.4276C132.462 48.6758 133.121 36.9078 133.573 30.8233L135.494 5.08858C135.576 3.95465 137.62 2.11546 138.69 1.79741C139.884 1.43787 142.833 2.98666 142.751 4.39716L141.434 29.2054C141.187 33.9485 140.597 39.4384 142.202 43.5731C144.685 43.0753 147.155 43.2274 148.005 44.5134C149.487 46.726 148.705 49.2981 146.208 50.7224Z"/></g>
+            <g class="ltr"><path class="fade" d="M162.671 45.1219C166.622 46.5739 171.78 39.8671 174.935 43.3519C178.722 47.5419 169.091 51.3309 164.825 52.1191C160.311 52.9488 156.223 50.1001 154.7 45.7718C151.01 35.2622 156.031 22.9826 166.142 18.5022C169.489 17.0225 173.028 17.8799 175.086 20.2722C181.164 27.3524 167.843 37.1706 160.531 38.6502C160.05 40.3926 160.448 44.3199 162.671 45.1357V45.1219ZM169.983 24.4622C165.607 25.0569 163.384 27.9746 162.259 31.335C165.689 29.9798 168.844 27.7672 169.983 24.4622Z"/></g>
+            <g class="ltr"><path class="fade" d="M207.875 40.0748C207.367 45.0807 212.978 45.2881 211.73 48.8835C211.332 50.0036 209.26 51.6492 207.998 51.5939C203.443 51.4279 199.986 47.2241 200.178 42.6469L200.686 30.0354C195.363 36.3273 191.7 43.0064 189.56 51.2067C189.217 52.5204 186.693 53.682 185.499 53.5713C184.306 53.4607 182.111 51.3035 182.289 49.9483L186.089 21.6138C186.295 20.1065 188.559 18.4471 189.848 18.461C191.536 18.4886 193.237 20.5076 193.086 22.3053L192.606 27.7122C195.253 24.1859 200.508 18.5024 205.446 21.0884C210.385 23.6743 208.492 33.9488 207.875 40.0748Z"/></g>
+            <g class="ltr"><path class="fade" d="M224.104 45.0111C228.096 45.4674 232.897 38.6777 236.478 41.0561C237.713 41.872 238.056 44.8728 236.725 45.9791C233.515 48.6479 229.948 50.8052 225.915 51.704C220.839 52.8518 216.558 48.883 216.037 43.6974C215.008 33.6303 220.304 23.4802 228.974 18.4467C232.321 16.5107 235.943 17.3266 238.124 19.954C244.353 27.3937 229.742 36.3545 223.143 38.083C222.032 39.7148 222.156 43.9325 224.104 44.9834V45.0111ZM232.966 24.1302C229.77 24.9737 227.945 26.9511 226.847 29.5785C229.591 28.4446 231.814 26.6469 232.966 24.1302Z"/></g>
+            <g class="ltr"><path class="keep" data-to="-90" d="M290.721 42.6977C292.903 42.3833 295.27 43.0116 295.744 44.9225C296.172 46.6511 294.561 48.6809 292.757 49.3117C289.928 50.3012 277.127 53.0343 274.207 51.5519C267.373 48.0837 269.377 38.26 270.628 27.6279C271.646 18.9746 272.015 14.223 273.356 5.61389C273.617 3.94065 276.031 2.5034 277.458 2.70992C278.706 2.89059 280.559 5.10224 280.325 6.73399C279.357 13.5117 278.868 17.3194 277.938 24.1025C277.705 25.8034 275.29 44.6654 277.787 44.292C279.067 44.1006 279.784 43.9866 281.066 43.808C284.825 43.2844 286.964 43.2388 290.721 42.6977Z"/></g>
+            <g class="ltr"><path class="fade" d="M308.204 44.2782C312.073 45.7025 317.135 39.134 320.208 42.5496C323.912 46.6567 314.488 50.3627 310.303 51.1371C305.872 51.9529 301.88 49.1596 300.385 44.9143C296.777 34.6121 301.688 22.5952 311.593 18.1978C314.872 16.7458 318.342 17.5893 320.345 19.9263C326.299 26.8682 313.239 36.4789 306.092 37.9309C305.611 39.6456 306.009 43.49 308.191 44.292L308.204 44.2782ZM315.352 24.0472C311.058 24.628 308.89 27.4905 307.793 30.7816C311.154 29.4541 314.241 27.283 315.352 24.0472Z"/></g>
+            <g class="ltr"><path class="fade" d="M333.782 43.8913C337.692 44.3338 342.398 37.6823 345.91 40.0193C347.117 40.8214 347.46 43.753 346.143 44.8454C343.001 47.459 339.503 49.5747 335.552 50.4598C330.586 51.5799 326.388 47.6941 325.867 42.619C324.865 32.7594 330.051 22.8167 338.543 17.8938C341.822 15.9855 345.361 16.8014 347.515 19.3735C353.606 26.661 339.311 35.4421 332.836 37.1292C331.752 38.7333 331.875 42.8541 333.782 43.8913ZM342.466 23.4252C339.338 24.2411 337.555 26.1909 336.471 28.763C339.16 27.6429 341.328 25.8867 342.466 23.4252Z"/></g>
+          </g>
+          <!-- the c·l·l mark (Figma 31:1073), scaled so its c lines up with the C above.
+               .end = the c and right l the C and L turn into; .mid = middle l + dots, which just fade in. -->
+          <g class="mark" transform="translate(0.4 5.6) scale(1.89)">
+            <path class="end" d="M6.46277 18.3851C9.43642 23.8249 15.8357 15.7326 18.7142 18.8569C19.3407 19.5349 19.2852 21.5531 18.4129 22.2628C13.8652 25.9541 6.32796 27.2268 2.54944 21.6561C-1.04273 16.3591 -0.84449 9.04388 3.17986 4.17898C7.08129 -0.539216 13.6709 -0.995177 17.723 3.65165C18.2067 4.20674 18.2028 5.9156 17.7666 6.4905C15.8516 9.02802 13.7502 4.92834 10.0748 5.30897C6.39933 5.6896 3.21157 12.4418 6.46277 18.3851Z"/>
+            <path class="mid" d="M34.357 7.54113C35.7288 7.2279 37.2077 7.90193 37.7945 9.17465C38.3258 10.3324 37.6003 12.0016 36.3394 12.5567C35.0786 13.1118 33.3539 12.3624 32.8702 11.3989C32.1644 9.99935 32.6521 7.92968 34.361 7.54113H34.357Z"/>
+            <path class="mid" d="M59.9528 25.2602C58.0695 25.3197 56.5311 25.2047 54.8262 24.8518C52.5186 24.3721 51.008 21.8544 51.5155 19.4636C52.8081 13.3973 54.2949 7.77114 55.9245 1.75643C56.2575 0.531286 57.9505 -0.245829 58.8624 0.0713613C60.0955 0.499567 60.603 2.19257 60.2977 3.47322L56.4082 19.9829L60.1629 20.5499C60.9004 20.6609 61.9828 22.0328 62.0343 22.7663C62.0938 23.6029 60.8528 25.2324 59.9488 25.2602H59.9528Z"/>
+            <path class="mid" d="M76.7943 8.12806C77.9877 7.45404 79.7323 7.87035 80.3587 8.93293C80.9852 9.99552 80.7275 11.7639 79.5102 12.6441C78.5032 13.3736 76.7586 13.0326 75.9419 11.8511C75.248 10.844 75.5057 8.8576 76.7943 8.12806Z"/>
+            <path class="end" d="M104.911 25.2602C103.019 25.3197 101.489 25.2007 99.7801 24.8478C97.4725 24.3721 95.9619 21.8464 96.4694 19.4596C97.7619 13.3933 99.2488 7.76718 100.878 1.75247C101.211 0.527323 102.904 -0.249792 103.816 0.0673978C105.049 0.495604 105.557 2.1886 105.252 3.46926L101.358 19.979L105.041 20.5341C105.898 20.6649 106.945 22.0249 106.992 22.7623C107.048 23.5989 105.803 25.2285 104.907 25.2562L104.911 25.2602Z"/>
+          </g>
+        </svg>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html#works" data-nav="works">Work</a>
+        <a href="archive.html" data-nav="archive">Archive</a>
+        <a href="about.html" data-nav="about">About</a>
+        <!-- TODO: drop your resume PDF at assets/resume.pdf -->
+        <a href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+      <!-- On the home page this starts in the hero as "• Contact" and slides up into the bar. -->
+      <a class="contact" href="#contact" data-contact><span class="contact-dot" aria-hidden="true"></span>Contact</a>
+    </div>
+  </header>
+
+  <!-- Case study: TACTIC. Anything in <span class="todo">[…]</span> is a placeholder to fill in.
+       They show as highlighted text on the page so they're easy to spot. -->
+  <div class="wrap with-sidebar page case">
+
+    <nav class="index" aria-label="On this page">
+      <div class="index-group">
+        <h3>TACTIC</h3>
+        <a href="#overview">Overview</a>
+        <a href="#challenge">The challenge</a>
+        <a href="#research">Research</a>
+        <a href="#concept">Concept</a>
+        <a href="#design">Design</a>
+        <a href="#testing">Testing</a>
+        <a href="#final">Final game</a>
+        <a href="#reflection">Reflection</a>
+      </div>
+      <div class="index-group">
+        <a href="index.html#works">← All work</a>
+      </div>
+    </nav>
+
+    <main>
+      <header class="case-hero">
+        <p class="label category-label">Game Design · 2026</p>
+        <h1>TACTIC</h1>
+        <p class="case-sub">Designing Tourette Syndrome through play</p>
+        <p class="case-lede">TACTIC is a browser rage-platformer where each obstacle is built around a different way a tic can present in Tourette Syndrome. Instead of explaining tics through text, the game makes players adapt to interruptions they can't fully predict or control.</p>
+        <figure class="case-cover">
+          <img src="assets/img/tactic/tactic-hero.png" alt="TACTIC end screen in pixel art: a mail carrier jumps holding a letter under the words 'You made it! You've delivered all your mail, great work!', with a dog, a mailbox, a duck on a parcel and a white dog." width="1280" height="720">
+          <figcaption>The end screen. <span class="todo">[Swap in or add a gameplay GIF of the full level]</span></figcaption>
+        </figure>
+      </header>
+
+      <!-- ===================== OVERVIEW ===================== -->
+      <section id="overview" class="project">
+        <h2>Overview</h2>
+        <dl class="facts">
+          <div><dt>Project</dt><dd>A3 Final Game, GBDA 302: Game Design</dd></div>
+          <div><dt>Team</dt><dd>Group 3A: <span class="todo">[names]</span></dd></div>
+          <div><dt>My role</dt><dd><span class="todo">[e.g. game design, level design, art, sound, programming]</span></dd></div>
+          <div><dt>Timeline</dt><dd><span class="todo">[start date] to [end date], [X] weeks</span></dd></div>
+          <div><dt>Platform</dt><dd>Browser (vanilla HTML, CSS, JavaScript)</dd></div>
+          <div><dt>Tools</dt><dd>Figma, <span class="todo">[e.g. VS Code, Procreate, Audacity, GitHub]</span></dd></div>
+          <div><dt>Deliverable</dt><dd>One playable level: 5 stages, 5 checkpoints, one continuous side-scrolling map</dd></div>
+          <div><dt>Play it</dt><dd><a class="link" href="https://github.com/charlene-llee/A3_Group3A_FinalGame" target="_blank" rel="noopener">Source on GitHub ↗</a> <span class="todo">[link to hosted build]</span></dd></div>
+        </dl>
+      </section>
+
+      <!-- ===================== CHALLENGE ===================== -->
+      <section id="challenge" class="project">
+        <h2>The challenge</h2>
+        <div class="prose">
+          <p>Design a game that represents a disability through what the player does, not through what the game tells them. The brief judged design decisions and mechanics, not stated intentions.</p>
+          <p class="hmw">How might we help players understand the unpredictability of living with tics, without claiming they now know exactly what it feels like?</p>
+
+          <h3>Design principles from the brief</h3>
+          <p>We turned the course guidance into five rules we checked every decision against:</p>
+          <ol class="principles">
+            <li><strong>Mechanics over metaphor.</strong> Each tic type changes what the player must do, not just how the level looks.</li>
+            <li><strong>No representation by explanation.</strong> No text walls or narration explaining Tourette's; meaning comes from interaction and pacing.</li>
+            <li><strong>Not a monolith.</strong> Five stages show five different presentations, so no single mechanic stands in for everyone with Tourette's.</li>
+            <li><strong>Failure as learning, not weakness.</strong> Dying is frequent but cheap; checkpoints frame it as practice, never as something to be "fixed".</li>
+            <li><strong>When in doubt, simplify.</strong> One clear gotcha per stage instead of several shallow ones.</li>
+          </ol>
+
+          <h3>Inspiration</h3>
+          <ul class="bullets">
+            <li><strong>Level Devil:</strong> the rage-platformer structure, where the level itself breaks expectations.</li>
+            <li><strong>Getting Over It with Bennett Foddy:</strong> difference represented through constant recalibration rather than story.</li>
+            <li><span class="todo">[Add any other references the team used]</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===================== RESEARCH ===================== -->
+      <section id="research" class="project">
+        <h2>Research</h2>
+        <div class="prose">
+          <p>Our research showed tics are not one experience: they vary in timing, triggers, frequency and how visible they are. That variety became the structure of the level.</p>
+
+          <h3>What we did</h3>
+          <ul class="bullets">
+            <li><span class="todo">[Sources reviewed: e.g. Tourette Canada, clinical overviews, first-person accounts, YouTube creators with Tourette's]</span></li>
+            <li><span class="todo">[Any interviews, community posts or lived-experience input]</span></li>
+            <li><span class="todo">[Existing games or media critiqued for how they represent tics]</span></li>
+          </ul>
+
+          <h3>Key insights <span class="todo">[replace with your real findings]</span></h3>
+          <ul class="bullets">
+            <li>Tics can arrive without warning, which interrupts whatever you were focused on.</li>
+            <li>Some tics are linked to triggers or actions, so cause and effect is not always obvious.</li>
+            <li>People develop their own strategies and rhythms for working around tics.</li>
+            <li>Experiences differ widely between people, so no single mechanic can speak for everyone.</li>
+          </ul>
+
+          <p class="callout"><strong>What we chose not to do.</strong> We avoided making the player character visibly tic, playing tics for comedy, or simulating vocal tics. <span class="todo">[Confirm or edit; explain why in a sentence.]</span></p>
+        </div>
+        <div class="gallery">
+          <figure><div class="placeholder" style="--ratio:16/9">research board, affinity map or annotated notes</div></figure>
+        </div>
+      </section>
+
+      <!-- ===================== CONCEPT ===================== -->
+      <section id="concept" class="project">
+        <h2>Concept and ideation</h2>
+        <div class="prose">
+          <p>We reframed the rage-platformer: its signature move, a level that breaks your expectations, maps naturally onto tics interrupting a planned action. The frustration is the genre's, not a punishment for the player.</p>
+
+          <h3>From twelve themes to five</h3>
+          <p>Our first level map tried to cover twelve themes across three rows: irregular small tics, cause-and-effect tics, delayed tics, blinking tics, sudden vocal tics, suppressed tics, directional confusion, unwanted attention, dialogue, positive supportive interactions, spatial object interaction, and acceptance and community.</p>
+        </div>
+        <div class="gallery">
+          <figure class="map"><img src="assets/img/tactic/map-early.png" alt="Early pixel-art level map: one long strip of grass with parcels, doghouses, dogs on leashes and gaps in the ground." loading="lazy"><figcaption>First pass at the level (one of three rows), from the team's Figma file</figcaption></figure>
+        </div>
+        <div class="prose">
+          <p>We then restructured it into three rows, each with one thing to teach, written on the map itself:</p>
+          <ul class="bullets">
+            <li>"Teach basic box and double box jumps" (cause-and-effect tics) and "teach that dogs are harmful, and 2 types of dogs" (blinking tics)</li>
+            <li>"Teach that bird call = freeze movement" (sudden vocal tics) and "teach that you need to move carefully on gravel" (suppressed tics)</li>
+            <li>"Teach that other people can help if you 'talk' to them" (acceptance and community)</li>
+          </ul>
+        </div>
+        <div class="gallery">
+          <figure class="map">
+            <img src="assets/img/tactic/map-row1.png" alt="Restructured row 1: parcels to jump on, gaps, doghouses with dogs, mailboxes and a white dog on a leash." loading="lazy">
+            <img src="assets/img/tactic/map-row2.png" alt="Restructured row 2: trees with birds, a speech bubble saying 'Be careful on gravel!', stacked parcels and gravel paths." loading="lazy">
+            <img src="assets/img/tactic/map-row3.png" alt="Restructured row 3: neighbours beside stacks of parcels, one saying 'Let us help you with a boost!', doghouses and mailboxes." loading="lazy">
+            <figcaption>The restructured three-row map</figcaption>
+          </figure>
+        </div>
+        <div class="prose">
+          <p>For the final game we narrowed this to five tic types, one mechanic per stage. <span class="todo">[Why you cut the rest: e.g. some themes didn't change what the player does, or would have needed text to explain.]</span></p>
+
+          <h3>Early directions</h3>
+        </div>
+        <table class="cs-table">
+          <thead><tr><th>Concept</th><th>Why we moved on</th></tr></thead>
+          <tbody>
+            <tr><td><span class="todo">[Concept A]</span></td><td><span class="todo">[reason]</span></td></tr>
+            <tr><td><span class="todo">[Concept B]</span></td><td><span class="todo">[reason]</span></td></tr>
+            <tr><td>Tic-based rage-platformer <em>(chosen)</em></td><td>Each tic type could become one clear, learnable mechanic</td></tr>
+          </tbody>
+        </table>
+        <div class="gallery">
+          <div class="row" style="--cols:2">
+            <figure><div class="placeholder" style="--ratio:4/3">concept sketches of early level ideas</div></figure>
+            <figure><div class="placeholder" style="--ratio:4/3">paper prototype or whiteboard map of the 5 stages</div></figure>
+          </div>
+        </div>
+        <div class="prose">
+          <h3>Visual and audio direction</h3>
+          <p>A pixel-art neighbourhood: you play a mail carrier delivering mail. Friendly, recognisable things (mailboxes, parcels, a duck) sit alongside hazards (dogs in doghouses), so the tone stays light and the mechanics carry the meaning. <span class="todo">[Palette, sound, and how you made the art. Add a mood board or style frames.]</span></p>
+        </div>
+      </section>
+
+      <!-- ===================== DESIGN ===================== -->
+      <section id="design" class="project">
+        <h2>Design</h2>
+        <div class="prose">
+          <p>One level, five stages, one continuous side-scrolling map. Each stage introduces one tic type as one mechanic, and the question we asked every time was: what does the player have to do differently?</p>
+          <h3>Five tic types, five mechanics</h3>
+        </div>
+        <table class="cs-table stages">
+          <thead><tr><th>Stage</th><th>Tic type</th><th>Mechanic</th><th>What the player must do differently</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Irregular small tics</td><td>A dog appears without warning</td><td>Stay alert and react, not just plan ahead</td></tr>
+            <tr><td>2</td><td>Cause-and-effect tics</td><td>Ground collapses a moment after you jump near certain spots</td><td>Notice that their own action triggered it, then adjust</td></tr>
+            <tr><td>3</td><td>Delayed tics</td><td>Two platforms swing on their own timing</td><td>Wait and match an outside rhythm instead of their own</td></tr>
+            <tr><td>4</td><td>Persistent tics</td><td>A gap keeps widening once crossed</td><td>Commit quickly, because hesitating costs more</td></tr>
+            <tr><td>5</td><td>Blinking tics</td><td>A vertical climb where objects move and flicker out of view</td><td>Track things they can't always see</td></tr>
+          </tbody>
+        </table>
+        <div class="gallery">
+          <div class="row" style="--cols:3">
+            <figure><div class="placeholder" style="--ratio:16/10">stage 1</div></figure>
+            <figure><div class="placeholder" style="--ratio:16/10">stage 2</div></figure>
+            <figure><div class="placeholder" style="--ratio:16/10">stage 3</div></figure>
+          </div>
+          <div class="row" style="--cols:3">
+            <figure><div class="placeholder" style="--ratio:16/10">stage 4</div></figure>
+            <figure><div class="placeholder" style="--ratio:16/10">stage 5</div></figure>
+          </div>
+        </div>
+
+        <div class="prose">
+          <h3>Teaching without text</h3>
+          <p>Players learn what to touch and what to avoid from the world itself, not instructions:</p>
+          <ul class="bullets">
+            <li><strong>Theme and character:</strong> an angry dog reads as a hazard immediately.</li>
+            <li><strong>Visual composition:</strong> solid black gaps lined up with the ground signal broken, unsafe floor.</li>
+            <li><strong>Sound:</strong> <span class="todo">[describe audio cues, e.g. a bark before the dog, a crack before collapse]</span></li>
+            <li><strong>Mailboxes:</strong> a friendly, recognisable object that marks safety and progress.</li>
+          </ul>
+
+          <h3>Failure that teaches</h3>
+          <p>Each stage ends at a mailbox checkpoint. Touch it and that's where you respawn, so a death costs one stage, not the whole level. Small wins at each mailbox keep players going, and repeated obstacles let them reuse strategies they've already built.</p>
+
+          <h3>Difficulty curve</h3>
+          <p>Stage 1 teaches the basics with a single, readable hazard. Difficulty rises slowly, ending in the vertical climb of Stage 5, which combines movement and visibility.</p>
+
+          <h3>Controls</h3>
+          <p class="controls"><kbd>←</kbd><kbd>→</kbd> or <kbd>A</kbd><kbd>D</kbd> to move · <kbd>↑</kbd>, <kbd>Space</kbd> or <kbd>W</kbd> to jump · <kbd>Esc</kbd> to pause · <kbd>⟲</kbd> to restart from the last checkpoint. Progress saves in the browser.</p>
+        </div>
+      </section>
+
+      <!-- ===================== TESTING ===================== -->
+      <section id="testing" class="project">
+        <h2>Testing and iteration</h2>
+        <div class="prose">
+          <p>We ran two playtests. Each one changed the design, and the second checked whether the first round's fixes worked.</p>
+          <h3>Playtest 1</h3>
+        </div>
+        <dl class="facts">
+          <div><dt>Build tested</dt><dd><span class="todo">[e.g. greybox, stages 1 to 3 only]</span></dd></div>
+          <div><dt>Participants</dt><dd><span class="todo">[number and who, e.g. 5 classmates]</span></dd></div>
+          <div><dt>Method</dt><dd><span class="todo">[e.g. think-aloud, observation, post-play survey]</span></dd></div>
+          <div><dt>What we measured</dt><dd><span class="todo">[e.g. deaths per stage, time to complete, could they name the tic theme?]</span></dd></div>
+        </dl>
+        <div class="prose">
+          <h4>What we saw</h4>
+          <ul class="bullets">
+            <li><span class="todo">[Finding 1, ideally with a number or a direct quote]</span></li>
+            <li><span class="todo">[Finding 2]</span></li>
+            <li><span class="todo">[Finding 3]</span></li>
+          </ul>
+          <h4>What we changed</h4>
+        </div>
+        <table class="cs-table">
+          <thead><tr><th>Problem</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td><span class="todo">[e.g. players didn't realise their jump caused the collapse]</span></td><td><span class="todo">[e.g. added a short delay and crack sound]</span></td></tr>
+            <tr><td><span class="todo">[problem]</span></td><td><span class="todo">[change]</span></td></tr>
+          </tbody>
+        </table>
+        <div class="gallery">
+          <figure><div class="placeholder" style="--ratio:16/9">playtest photo or annotated notes</div></figure>
+        </div>
+
+        <div class="prose"><h3>Playtest 2</h3></div>
+        <dl class="facts">
+          <div><dt>Build tested</dt><dd><span class="todo">[e.g. full level, all 5 stages, with art and sound]</span></dd></div>
+          <div><dt>Participants</dt><dd><span class="todo">[number and who]</span></dd></div>
+          <div><dt>Method</dt><dd><span class="todo">[method]</span></dd></div>
+          <div><dt>What we measured</dt><dd><span class="todo">[measures]</span></dd></div>
+        </dl>
+        <div class="prose">
+          <h4>What we saw</h4>
+          <ul class="bullets">
+            <li><span class="todo">[Did the Playtest 1 fixes work?]</span></li>
+            <li><span class="todo">[New finding]</span></li>
+            <li><span class="todo">[What players said about the Tourette's theme]</span></li>
+          </ul>
+          <h4>What we changed</h4>
+        </div>
+        <table class="cs-table">
+          <thead><tr><th>Problem</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td><span class="todo">[problem]</span></td><td><span class="todo">[change]</span></td></tr>
+          </tbody>
+        </table>
+        <div class="gallery">
+          <div class="row" style="--cols:2">
+            <figure><div class="placeholder" style="--ratio:16/10">before</div><figcaption>Before</figcaption></figure>
+            <figure><div class="placeholder" style="--ratio:16/10">after</div><figcaption>After</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== FINAL ===================== -->
+      <section id="final" class="project">
+        <h2>Final game</h2>
+        <div class="prose">
+          <p>The final build is one continuous level with five stages, five mailbox checkpoints and no tutorial text: players learn each tic-based mechanic by playing it.</p>
+        </div>
+        <div class="gallery">
+          <figure><div class="placeholder" style="--ratio:16/9">full playthrough highlights (GIF or video)</div></figure>
+        </div>
+        <p class="case-cta"><a class="arrow-link" href="https://github.com/charlene-llee/A3_Group3A_FinalGame" target="_blank" rel="noopener">Play TACTIC <span aria-hidden="true">↗</span></a> <span class="todo">[point this at the hosted build]</span></p>
+      </section>
+
+      <!-- ===================== REFLECTION ===================== -->
+      <section id="reflection" class="project">
+        <h2>Reflection</h2>
+        <div class="prose">
+          <p><strong>What worked.</strong> <span class="todo">[e.g. one clear mechanic per stage kept the theme readable; checkpoints kept frustration productive]</span></p>
+          <p><strong>What we'd change.</strong> <span class="todo">[e.g. test with people who have Tourette's; refine stages where the tic mapping felt loose]</span></p>
+          <p><strong>What we learned about representation.</strong> A short game can't show what it's like to live with tics, and we didn't try to. The aim was understanding through play: tics aren't chosen, they vary between people, and adapting to them is a skill, not a failure.</p>
+          <p><strong>My takeaway.</strong> <span class="todo">[One or two sentences in your own voice about what you'd carry into future design work]</span></p>
+        </div>
+      </section>
+
+      <nav class="case-next" aria-label="More work">
+        <a class="arrow-link" href="index.html#works">← Back to all work</a>
+      </nav>
+    </main>
+  </div>
+
+  <footer id="contact" class="site-footer" style="margin-top:140px">
+    <div class="wrap">
+      <div class="footer-hello">
+        <img src="assets/img/doodle.png" alt="" width="44">
+        <div>
+          <h2>Let's work together!</h2>
+          <p>Built with love © 2026 Charlene Lee</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="assets/resume.pdf" target="_blank" rel="noopener">resume</a>
+        <a href="mailto:you@example.com">email</a>
+        <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">linkedin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

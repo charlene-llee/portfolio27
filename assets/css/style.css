@@ -595,6 +595,120 @@ figcaption { margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); }
 }
 .film-strip img { aspect-ratio: 3 / 4; object-fit: cover; scroll-snap-align: start; border-radius: var(--radius); }
 
+
+/* ---------- case study pages (e.g. tactic.html) ---------- */
+
+.case-hero { margin-bottom: clamp(64px, 9vw, 110px); }
+.case-hero h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.case-sub {
+  font-family: var(--font-grotesk);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  color: var(--muted);
+  margin-top: 10px;
+}
+.case-lede { max-width: 60ch; margin-top: 24px; font-size: 1.0625rem; color: var(--ink-2); }
+.case-cover { margin-top: 40px; }
+.case-cover img { width: 100%; image-rendering: pixelated; }
+
+.case .project h2 { margin-bottom: 4px; }
+
+.prose { max-width: 66ch; margin-top: 24px; }
+.prose > * + * { margin-top: 14px; }
+.prose h3 {
+  margin-top: 40px;
+  font-size: var(--fs-base);
+  font-weight: 500;
+  color: var(--ink);
+}
+.prose h4 { margin-top: 28px; font-size: var(--fs-sm); font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.04em; }
+.prose strong { font-weight: 500; color: var(--ink); }
+
+.hmw {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1.25;
+  color: var(--ink);
+  padding: 8px 0 8px 20px;
+  border-left: 2px solid var(--ink);
+  margin-block: 28px !important;
+}
+
+.bullets { list-style: none; padding: 0; }
+.bullets li { position: relative; padding-left: 18px; }
+.bullets li + li { margin-top: 8px; }
+.bullets li::before { content: ""; position: absolute; left: 2px; top: 0.7em; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+
+.principles { counter-reset: p; list-style: none; padding: 0; }
+.principles li { counter-increment: p; position: relative; padding-left: 34px; }
+.principles li + li { margin-top: 12px; }
+.principles li::before { content: counter(p, decimal-leading-zero); position: absolute; left: 0; top: 0.1em; font-size: var(--fs-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.callout { background: var(--surface); padding: 18px 20px; border-radius: var(--radius); }
+
+/* overview + playtest facts */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0 32px;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.facts > div { padding-block: 14px; border-bottom: 1px solid var(--line); font-size: var(--fs-sm); }
+.facts dt { color: var(--muted); font-size: var(--fs-xs); margin-bottom: 4px; }
+.facts dd { color: var(--ink); }
+
+/* tables */
+.cs-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: var(--fs-sm); }
+.cs-table th { text-align: left; font-weight: 400; font-size: var(--fs-xs); color: var(--muted); padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ink); }
+.cs-table td { vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+.cs-table td:first-child { color: var(--ink); }
+.cs-table.stages td:first-child { width: 3.5em; font-variant-numeric: tabular-nums; color: var(--muted); }
+@media (max-width: 700px) {
+  .cs-table, .cs-table tbody, .cs-table tr, .cs-table td { display: block; width: 100% !important; }
+  .cs-table thead { display: none; }
+  .cs-table tr { padding-block: 12px; border-bottom: 1px solid var(--line); }
+  .cs-table td { border: 0; padding: 2px 0; }
+}
+
+/* wide level maps: scroll sideways on small screens rather than shrinking to a sliver */
+.map img { width: 100%; min-width: 900px; image-rendering: auto; }
+.map img + img { margin-top: 8px; }
+.map { overflow-x: auto; }
+
+.controls kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 1px 6px;
+  margin-inline: 1px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font: inherit;
+  font-size: var(--fs-xs);
+  text-align: center;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.case-cta { margin-top: 24px; }
+.case-next { margin-top: clamp(80px, 10vw, 120px); padding-top: 24px; border-top: 1px solid var(--line); }
+
+/* placeholders still to fill in: highlighted so they're easy to spot */
+.todo {
+  background: #fdf0c9;
+  color: #8a6a12;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 0.95em;
+}
+
 /* ---------- motion ---------- */
 
 .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -648,3 +762,6 @@ figcaption { margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); }
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* pages with the left index (Archive, case studies): room below the fixed bar */
+.with-sidebar.page { padding-top: calc(var(--header-h) + 48px); }

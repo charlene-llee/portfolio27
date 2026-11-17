@@ -26,6 +26,7 @@ Then open http://localhost:5500.
 
 ```
 index.html          Works: hero, 6-project grid, statement, footer
+tactic.html         Case study: TACTIC (Game Design card on the home page)
 archive.html        Archive: sticky left index + Visual Design / Film / Traditional Art
 about.html          About: intro + portraits, experience, awards, photos
 assets/css/style.css  All styles. Design tokens are at the top in :root
@@ -58,6 +59,18 @@ dark grey, letter by letter (Figma 43:1623). Each dark letter is revealed by a "
 timing is in each pen's `--d` (delay) and `--t` (duration). Pens follow the stroke direction: the c from its
 top tip around, each dot as a loop, each l down the stem and out along the foot. Only the outline-shaped `.doodle-hit`
 path responds to the mouse, so the empty corners of the doodle's box don't trigger it. On touch screens, a tap toggles it.
+
+## Case studies
+
+`tactic.html` is the template for case studies: the same top bar, footer and left "On this page" index as Archive,
+then sections (`<section id="…" class="project">`) with an `h2`, text in `.prose`, fact grids in `dl.facts`,
+tables in `table.cs-table`, and images in `.gallery`. Copy it to make melo / Polar / sweet dreams pages.
+
+**Placeholders:** every `<span class="todo">[…]</span>` is something still to fill in. It shows as yellow highlighted
+text on the page so you can't miss it; replace the whole span with your text. Grey boxes (`.placeholder`) are images
+still to add: swap each for an `<img>`. Search the file for `todo` and `placeholder` to find them all.
+
+TACTIC images come from the GBDA 302 Figma files: the end screen (`FinalBG`) and the early and restructured level maps.
 
 ## Design tokens (also handy for Figma variables)
 
