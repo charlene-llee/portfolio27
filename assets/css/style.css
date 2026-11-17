@@ -29,10 +29,12 @@
 
   /* layout */
   --max: 1440px;
-  --header-h: 72px;
-  --nav-gap: 50px;       /* space between nav links in the hero (Figma) */
-  --lettering-w: 350px;  /* "Charlene Lee" width in the hero */
-  --gutter: clamp(16px, 8.3vw, 120px);
+  --header-h: 64px;
+  --hero-top: 97px;      /* bar → "Charlene Lee" */
+  --fs-nav: 0.875rem;    /* 14px nav + hero details */
+  --doodle: #e7e6e2;
+  --lettering-w: 330px;  /* "Charlene Lee" width in the hero (51px tall, as in Figma) */
+  --gutter: clamp(16px, 11.1vw, 160px);
   --sidebar: 180px;
   --radius: 4px;
 }
@@ -77,44 +79,39 @@ ul, ol { padding: 0; list-style: none; }
   padding-inline: var(--gutter);
 }
 
-/* ---------- header: morphing logo + docking nav ---------- */
+/* ---------- header: fixed bar, morphing logo, sliding Contact ---------- */
 
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 20;
   height: var(--header-h);
-  pointer-events: none;            /* only the logo + links take clicks */
+  background: var(--bg);
 }
 
-/* the frosted bar fades in once the logo has docked */
-.site-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 var(--line);
-  opacity: var(--bar, 0);
+.header-inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.header-inner { position: relative; height: 100%; }
-
-/* Logo and nav are positioned by main.js. They start in the hero (over .name-slot and
-   .nav-slot), ride up with the page, and dock into the bar when they reach the top. */
+/* Logo and Contact are positioned by main.js. On the home page they start in the hero
+   (over .name-slot and .contact-slot), scroll up like normal content, and only when
+   they get close to the bar do they ease into their spots in it. */
 .logo,
-.nav {
+.contact {
   position: fixed;
   left: 0;
   top: 0;
   transform-origin: 0 0;
   will-change: transform;
-  pointer-events: auto;
+  z-index: 21;
 }
 
-.logo { width: var(--lettering-w); color: var(--ink); }
-.lettering { display: block; width: 100%; height: auto; overflow: visible; fill: #000; }
+.logo { width: 350px; }   /* base size; main.js scales it to fit .name-slot */
+.lettering { display: block; width: 100%; height: auto; overflow: visible; fill: var(--ink-2); }
 .lettering path { transform-box: fill-box; transform-origin: center; }
 .lettering .mark path { opacity: 0; }
 
@@ -126,42 +123,56 @@ ul, ol { padding: 0; list-style: none; }
 }
 .lettering .ltr .hit { fill: transparent; }
 .logo:not(.is-docked) .lettering .ltr:hover { transform: translateY(-10%) rotate(-6deg); }
-.logo.is-docked:hover .mark { animation: nod 0.5s ease; }
-@keyframes nod { 40% { transform: translate(0.4px, 3.6px) scale(1.89) rotate(-3deg); } }
 
-/* nav links */
+/* centre nav: Work / Archive / About / Resume */
 .nav {
   display: flex;
-  gap: var(--nav-gap);
-  font-size: 1rem;
-  line-height: 1.3;
+  gap: 30px;
+  font-size: var(--fs-nav);
+  line-height: 1.2;
+}
+.nav a,
+.contact {
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.nav a:hover,
+.nav a[aria-current="page"] { color: var(--ink-2); }
+
+.contact {
+  display: flex;
+  align-items: center;
+  font-size: var(--fs-nav);
+  line-height: 1.2;
+  color: var(--ink-2);
   white-space: nowrap;
 }
-.nav a { position: relative; color: var(--ink); padding-block: 4px; }
-
-/* a hand-drawn squiggle (same pen as the lettering) underlines the hovered / current link */
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  height: 7px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.5C8 1.5 12 6 19 3.5S30 1 37 4s13 .5 22-1' fill='none' stroke='%23232323' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.45s cubic-bezier(.6,.1,.2,1);
+.contact:hover { color: var(--ink); }
+.contact-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  margin-right: 10px;
 }
-.nav a:hover::after,
-.nav a[aria-current="page"]::after { clip-path: inset(0 0 0 0); }
 
-/* before JS runs (or without it): everything already docked */
-html:not(.js) .site-header::before { opacity: 1; }
-html:not(.js) .logo { left: var(--gutter); top: 22px; transform: scale(0.48); }
+/* before JS runs (or without it): everything already in the bar */
+html:not(.js) .logo { left: var(--gutter); top: 18px; transform: scale(0.535); }
 html:not(.js) .lettering .word { opacity: 0; }
 html:not(.js) .lettering .mark path { opacity: 1; }
-html:not(.js) .nav { left: auto; right: var(--gutter); top: 24px; font-size: 0.875rem; }
+html:not(.js) .contact { left: auto; right: var(--gutter); top: 24px; }
+html:not(.js) .contact-dot { display: none; }
 
 .page { padding-top: var(--header-h); }
+
+@media (max-width: 700px) {
+  /* two rows on phones: links on a slim top row, c·l·l + Contact land in the row
+     beneath it, so the name never has to pass through the links on its way up */
+  :root { --header-h: 84px; }
+  .header-inner { align-items: flex-start; padding-top: 10px; }
+  .nav { gap: 22px; }
+  .hero .contact-slot { top: 16px; }   /* phones: Contact sits above the name, not beside it */
+}
 
 /* ---------- shared bits ---------- */
 
@@ -199,41 +210,63 @@ html:not(.js) .nav { left: auto; right: var(--gutter); top: 24px; font-size: 0.8
 
 .hero {
   position: relative;
-  padding-top: clamp(16px, 2.2vw, 30px);
+  padding-top: var(--hero-top);
 }
 
-/* the big doodle: decorative, fixed in place behind the hero */
-.hero-doodle {
+/* the big doodle sits behind the hero; hover it to draw out c · l · l */
+.doodle {
   position: absolute;
   z-index: 0;
-  top: clamp(-50px, -3vw, -10px);
-  right: calc(var(--gutter) + 3%);
-  width: clamp(220px, 30vw, 430px);
-  height: auto;
-  pointer-events: none;
-  user-select: none;
+  top: 20px;
+  right: calc(var(--gutter) + 4.5%);
+  width: clamp(220px, 31.25vw, 450px);
+}
+.doodle svg { display: block; width: 100%; height: auto; overflow: visible; }
+.doodle-base { fill: var(--doodle); }
+.doodle-ink { fill: var(--ink-2); }
+
+.doodle .pen {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 30;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.3s ease-in;           /* un-draw: quick, all at once */
+}
+.doodle:hover .pen,
+.doodle.is-drawn .pen {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--t) cubic-bezier(.45,.05,.4,1) var(--d);  /* draw: one after another */
 }
 
-.hero > *:not(.hero-doodle) { position: relative; z-index: 1; }
-
-.hello { font-size: var(--fs-base); color: var(--ink); }
+.hero > *:not(.doodle) { position: relative; z-index: 1; }
 
 /* reserves the space the "Charlene Lee" logo occupies before you scroll */
 .name-slot {
   width: min(var(--lettering-w), 100%);
   aspect-ratio: 350 / 54;
-  margin-top: clamp(28px, 3vw, 40px);
+  pointer-events: none;
+}
+
+.contact-slot {
+  position: absolute !important;
+  right: var(--gutter);
+  top: calc(var(--hero-top) - 2px);
+  pointer-events: none;
 }
 
 .tagline {
   font-family: var(--font-grotesk);
   font-weight: 400;
-  font-size: clamp(1.5rem, 2.9vw, 2.1875rem);  /* 35px in Figma */
+  font-size: clamp(1.5rem, 2.45vw, 2.1875rem);  /* 35px in Figma */
   line-height: 1.3;
   letter-spacing: -0.01em;
   color: var(--muted);
-  margin-top: 6px;
+  margin-top: 4px;
   min-height: 1.3em;
+  pointer-events: none;
 }
 
 .caret {
@@ -248,27 +281,17 @@ html:not(.js) .nav { left: auto; right: var(--gutter); top: 24px; font-size: 0.8
 .tagline.is-typing .caret { animation: none; }
 @keyframes blink { 50% { opacity: 0; } }
 
-.hero-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 32px;
-  flex-wrap: wrap;
-  margin-top: clamp(80px, 15vw, 230px);
-}
-
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px clamp(32px, 4.2vw, 60px);
-  font-size: var(--fs-base);
-  line-height: 1.3;
+  gap: 16px clamp(32px, 3.5vw, 50px);
+  margin-top: clamp(80px, 16.5vw, 238px);
+  font-size: var(--fs-nav);
+  line-height: 1.2;
+  pointer-events: none;
 }
-.hero-meta .k { color: var(--muted); margin-bottom: 6px; }
-.hero-meta .v { color: var(--ink); }
-
-/* empty box the nav sits over until it docks; main.js sizes it to the nav */
-.nav-slot { height: 29px; }
+.hero-meta .k { color: var(--muted); margin-bottom: 5px; }
+.hero-meta .v { color: var(--ink-2); }
 
 /* ---------- home: works grid ---------- */
 
@@ -337,8 +360,8 @@ a.work-card:hover .thumb img { transform: scale(1.025); }
 
 @media (max-width: 700px) {
   .work-grid { grid-template-columns: 1fr; }
-  .hero-doodle { opacity: 0.55; top: 24px; width: 58vw; }
-  :root { --nav-gap: 22px; }
+  .doodle { top: 8px; width: 52vw; opacity: 0.9; }
+  :root { --hero-top: 64px; }
 }
 
 /* ---------- home: statement ---------- */
@@ -566,7 +589,7 @@ figcaption { margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .nav a::after { transition: none; }
+  .doodle .pen { transition: none !important; }
   .lettering .ltr { transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .caret { animation: none; }

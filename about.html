@@ -43,13 +43,15 @@
           </g>
         </svg>
       </a>
-      <nav class="nav" aria-label="Main" data-nav-bar>
-        <a href="index.html#works" data-nav="works">Works</a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html#works" data-nav="works">Work</a>
         <a href="archive.html" data-nav="archive">Archive</a>
-        <a href="about.html" data-nav="about">About Me</a>
+        <a href="about.html" data-nav="about">About</a>
         <!-- TODO: drop your resume PDF at assets/resume.pdf -->
         <a href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
       </nav>
+      <!-- On the home page this starts in the hero as "• Contact" and slides up into the bar. -->
+      <a class="contact" href="#contact" data-contact><span class="contact-dot" aria-hidden="true"></span>Contact</a>
     </div>
   </header>
 
@@ -132,7 +134,7 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer id="contact" class="site-footer">
     <div class="wrap">
       <div class="footer-hello">
         <img src="assets/img/doodle.png" alt="" width="44">

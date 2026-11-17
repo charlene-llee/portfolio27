@@ -1,26 +1,27 @@
 // ---------------------------------------------------------------------------
-// Header: "Charlene Lee" → c·l·l, and the hero nav → top nav bar
+// Header: "Charlene Lee" → c·l·l (left of the bar), "• Contact" → Contact (right)
 //
-// Home page: the logo starts as the big lettering (over .name-slot) and the nav
-// starts in the hero (over .nav-slot). Both scroll up with the page like normal
-// content. Only when each one gets close to the top does it shrink and dock
-// into the bar. While the logo docks:
+// Home page: both start in the hero (over .name-slot / .contact-slot) and scroll
+// like normal content. Once one gets within LANDING_ZONE px of its spot in the bar,
+// it keeps moving at page speed and then decelerates evenly to a stop in the bar,
+// so there's no jump, no speed-up and no hard stop. While the logo lands:
 //   - the C of "Charlene" slides into place as the c
 //   - the L of "Lee" slides left to become the right-hand l
 //   - every other letter fades out
 //   - the middle l and the two dots fade in on their own
 //   - at the very end, C and L hand over to the exact c·l·l logo shapes
-// Other pages: everything is docked from the start.
+// Other pages: everything is already in the bar.
 // ---------------------------------------------------------------------------
 (() => {
   const header = document.querySelector("[data-header]");
   if (!header) return;
   const inner = header.querySelector(".header-inner");
   const logo = header.querySelector("[data-logo]");
-  const nav = header.querySelector("[data-nav-bar]");
+  const contact = header.querySelector("[data-contact]");
+  const dot = contact.querySelector(".contact-dot");
   const svg = logo.querySelector("svg");
   const nameSlot = document.querySelector("[data-name-slot]");
-  const navSlot = document.querySelector("[data-nav-slot]");
+  const contactSlot = document.querySelector("[data-contact-slot]");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const keeps = [...svg.querySelectorAll(".word .keep")].map((el) => ({ el, dx: +el.dataset.to }));
@@ -39,81 +40,90 @@
 
   // mark the current page in the nav
   const page = document.body.dataset.page;
-  nav.querySelectorAll("[data-nav]").forEach((a) => {
+  header.querySelectorAll("[data-nav]").forEach((a) => {
     if (a.dataset.nav === page) a.setAttribute("aria-current", "page");
   });
 
-  const BASE_W = 350, BASE_H = 54;
-  const LOGO_ZONE = 90;   // px from the top where the logo starts to shrink/morph
-  const NAV_ZONE = 70;    // same for the nav
+  const BASE_W = 350;
+  const MARK_UNITS = 48, MARK_TOP = 5.6;   // c·l·l height / top inside the lettering's 350×54 box
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const lerp = (a, b, t) => a + (b - a) * t;
-  const ease = (t) => t * t * (3 - 2 * t);
+  const smooth = (t) => t * t * (3 - 2 * t);
   const range = (t, a, b) => clamp((t - a) / (b - a));
 
   let G;
   function measure() {
-    const H = header.offsetHeight;
+    const small = innerWidth <= 700;
+    const zone = small ? 70 : 110;           // LANDING_ZONE: how close to the bar before anything changes
     const cs = getComputedStyle(inner);
     const ir = inner.getBoundingClientRect();
     const left = ir.left + parseFloat(cs.paddingLeft);
     const right = ir.right - parseFloat(cs.paddingRight);
-    const small = innerWidth < 600;
+    const rowMid = small ? 60 : header.offsetHeight / 2;   // phones: lower row of a two-row bar
 
-    const markPx = small ? 20 : 24;                    // docked c·l·l height
-    const ls1 = markPx / 48;                            // mark is ~48 svg units tall
-    const navS1 = small ? 0.8125 : 0.875;               // docked nav: 13px / 14px
-    const navW = nav.offsetWidth, navH = nav.offsetHeight;
+    const markPx = small ? 19 : 21;          // c·l·l height in the bar (21px in Figma)
+    const ls = markPx / MARK_UNITS;
+    const cw = contact.offsetWidth, ch = contact.offsetHeight;
 
     G = {
-      logoEnd: { x: left, y: (H - BASE_H * ls1) / 2, s: ls1 },
-      navEnd: { x: right - navW * navS1, y: (H - navH * navS1) / 2, s: navS1 },
+      zone,
+      logoEnd: { x: left, y: rowMid - markPx / 2 - MARK_TOP * ls, s: ls },
+      contactEnd: { x: right - cw, y: rowMid - ch / 2, s: 1 },
     };
     if (nameSlot) {
       const r = nameSlot.getBoundingClientRect();
       G.logoStart = { docTop: r.top + scrollY, x: r.left, s: r.width / BASE_W };
     }
-    if (navSlot) {
-      navSlot.style.width = navW + "px";
-      navSlot.style.height = navH + "px";
-      const r = navSlot.getBoundingClientRect();
-      G.navStart = { docTop: r.top + scrollY, x: r.left, s: 1 };
+    if (contactSlot) {
+      contactSlot.style.width = cw + "px";
+      contactSlot.style.height = ch + "px";
+      const r = contactSlot.getBoundingClientRect();
+      G.contactStart = { docTop: r.top + scrollY, x: r.left, s: 1 };
     }
   }
 
-  // where an element is: riding with the page, then easing into its docked spot
-  function place(start, end, zone) {
-    if (!start) return { ...end, q: 1 };
+  // Where an element is for the current scroll. p: 0 = in the hero, 1 = in the bar.
+  // Inside the landing zone the distance left to travel is zone·(1−p)², which starts
+  // at page speed and slows evenly to zero, so it glides in rather than snapping.
+  function place(start, end) {
+    if (!start) return { ...end, p: 1 };
     const top = start.docTop - scrollY;
-    let q = clamp(1 - (top - end.y) / zone);
-    if (reduce) q = q >= 1 ? 1 : 0;
-    const e = ease(q);
-    return { x: lerp(start.x, end.x, e), y: Math.max(top, end.y), s: lerp(start.s, end.s, e), q };
+    const z = G.zone;
+    const into = (start.docTop - end.y - z) - scrollY;   // > 0: not in the zone yet
+    if (into > 0) return { x: start.x, y: top, s: start.s, p: 0 };
+    let p = clamp(-into / (2 * z));
+    if (reduce) p = p > 0 ? 1 : 0;
+    const e = smooth(p);
+    return {
+      x: lerp(start.x, end.x, e),
+      y: end.y + z * (1 - p) * (1 - p),
+      s: lerp(start.s, end.s, e),
+      p,
+    };
   }
 
   function render() {
-    const L = place(G.logoStart, G.logoEnd, LOGO_ZONE);
+    const L = place(G.logoStart, G.logoEnd);
     logo.style.transform = `translate(${L.x}px, ${L.y}px) scale(${L.s})`;
 
-    const q = L.q;
+    const q = L.p;
     fades.forEach((el) => {
-      el.style.opacity = 1 - range(q, 0.05, 0.5);
-      el.style.transform = `scale(${1 - 0.4 * range(q, 0.05, 0.5)})`;
+      el.style.opacity = 1 - range(q, 0.05, 0.45);
+      el.style.transform = `scale(${1 - 0.4 * range(q, 0.05, 0.45)})`;
     });
-    const slide = ease(range(q, 0.1, 0.8));
-    const handoff = range(q, 0.8, 1);
+    const slide = smooth(range(q, 0.1, 0.75));
+    const handoff = range(q, 0.75, 0.95);
     keeps.forEach(({ el, dx }) => {
       el.style.transform = `translateX(${dx * slide}px)`;
       el.style.opacity = 1 - handoff;
     });
     markEnd.forEach((el) => (el.style.opacity = handoff));
-    markMid.forEach((el) => (el.style.opacity = range(q, 0.45, 0.9)));
+    markMid.forEach((el) => (el.style.opacity = range(q, 0.4, 0.85)));
     logo.classList.toggle("is-docked", q >= 1);
 
-    const N = place(G.navStart, G.navEnd, NAV_ZONE);
-    nav.style.transform = `translate(${N.x}px, ${N.y}px) scale(${N.s})`;
-
-    header.style.setProperty("--bar", range(q, 0.6, 1));
+    const C = place(G.contactStart, G.contactEnd);
+    contact.style.transform = `translate(${C.x}px, ${C.y}px)`;
+    dot.style.opacity = 1 - range(C.p, 0, 0.6);
   }
 
   let ticking = false;
@@ -126,6 +136,16 @@
   addEventListener("resize", refresh);
   refresh();
   document.fonts?.ready.then(refresh);   // fonts can shift the hero after first paint
+})();
+
+// ---------------------------------------------------------------------------
+// Doodle: hover draws out c · l · l (CSS does the drawing). On touch screens,
+// where there's no hover, a tap toggles it.
+// ---------------------------------------------------------------------------
+(() => {
+  const d = document.querySelector("[data-doodle]");
+  if (!d || matchMedia("(hover: hover)").matches) return;
+  d.addEventListener("click", () => d.classList.toggle("is-drawn"));
 })();
 
 // ---------------------------------------------------------------------------

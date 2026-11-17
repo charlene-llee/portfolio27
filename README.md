@@ -40,19 +40,22 @@ assets/img/           Images (see the warning below)
 Edit the phrases in `index.html`, in the `data-phrases="…"` attribute, with each one separated by `|`.
 Speeds are at the bottom of the header section in `assets/js/main.js` (`TYPE`, `DELETE`, `HOLD`).
 
-**Logo: "Charlene Lee" → c·l·l.** One SVG in the header of every page holds both:
-- `.word`: the "Charlene Lee" lettering (Figma 31:1104), one `<g class="ltr">` per letter (that's what makes each letter hop on hover)
-- `.mark`: the exact c·l·l logo (Figma 31:1073)
+**Top bar.** Work / Archive / About / Resume sit in the centre of a fixed bar. On the home page the two ends start empty:
+"Charlene Lee" (left) and "• Contact" (right) begin in the hero and move up into the bar as you scroll.
 
-The name scrolls like normal text. Only in the last `LOGO_ZONE` px before the top does it shrink and morph:
-the **C** slides in as the c, the **L** of Lee slides left (`data-to="-90"`) to become the right-hand l,
-the other letters fade, and the middle l and dots fade in on their own. At the very end the C and L
-hand over to the logo's own shapes, so the docked mark is exactly your c·l·l.
+**How they move.** Both scroll like normal content until they're `zone` px (110 on desktop, 70 on phones, set in `measure()`
+in `assets/js/main.js`) from their spot in the bar. From there they keep moving at page speed, then slow evenly to a stop,
+so the hand-off is seamless. While the name lands:
+the **C** becomes the c, the **L** of Lee slides left (`data-to="-90"`) to become the right-hand l,
+the other letters fade, and the middle l and dots fade in on their own. It ends on the exact c·l·l logo (Figma 31:1073).
+Contact's dot fades out as it lands. On Archive and About everything is already in the bar.
 
-**Nav docking.** Works / Archive / About Me / Resume sit in the hero (over `.nav-slot`), scroll up with the page,
-and dock into the top bar beside c·l·l once they reach it (`NAV_ZONE`). On Archive and About everything is docked from the start.
+The header SVG holds both drawings: `.word` (the "Charlene Lee" lettering, Figma 31:1104, one `<g class="ltr">` per letter
+for the hover hop) and `.mark` (the c·l·l logo).
 
-The big doodle behind the hero is `assets/img/doodle.svg` (Figma 29:722). It stays in place while the cards scroll over it.
+**Doodle hover.** The doodle is inline in `index.html` (Figma 29:722). Hovering it draws out the c · l · l on her face in
+dark grey, letter by letter (Figma 43:1623). Each dark letter is revealed by a "pen" stroke inside a `<mask>`, and the
+timing is in each pen's `--d` (delay) and `--t` (duration). On touch screens, a tap toggles it.
 
 ## Design tokens (also handy for Figma variables)
 
