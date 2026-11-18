@@ -50,7 +50,11 @@
         <a href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
       </nav>
       <!-- On the home page this starts in the hero as "• Contact" and slides up into the bar. -->
-      <a class="contact" href="#contact" data-contact><span class="contact-dot" aria-hidden="true"></span>Contact</a>
+      <a class="contact" href="#contact" data-contact aria-label="Contact">
+        <!-- In the hero this reads "Let's connect →"; as it lands in the bar it crossfades to "Contact". -->
+        <span class="c-long" aria-hidden="true">Let’s connect<svg class="c-arrow" viewBox="0 0 16 12" width="16" height="12"><path d="M10 12L8.6 10.55L12.15 7H0V5H12.15L8.6 1.45L10 0L16 6L10 12Z"/></svg></span>
+        <span class="c-short" aria-hidden="true">Contact</span>
+      </a>
     </div>
   </header>
 
@@ -95,14 +99,14 @@
 
       <!-- The visible "Charlene Lee" is the header logo, parked over this slot until you scroll. -->
       <h1 class="name-slot" data-name-slot><span class="visually-hidden">Charlene Lee</span></h1>
-      <!-- "• Contact" sits here until you scroll, then slides up into the top bar. -->
+      <!-- "Let's connect →" sits here until you scroll, then slides up into the top bar as "Contact". -->
       <div class="contact-slot" data-contact-slot aria-hidden="true"></div>
 
       <!-- Typing tagline. Edit the lines in data-phrases (separate them with | ). -->
       <p class="tagline" data-typer
          data-phrases="a product and visual designer|a sun &amp; rain lover|a visual learner|a hands-on creator|a nature lover|a multidisciplinary designer">
-        <span class="visually-hidden">a product and visual designer</span>
-        <span class="typed" aria-hidden="true">a product and visual designer</span><span class="caret" aria-hidden="true"></span>
+        <span class="visually-hidden">is a product and visual designer</span>
+        <span aria-hidden="true">is </span><span class="typed" aria-hidden="true">a product and visual designer</span><span class="caret" aria-hidden="true"></span>
       </p>
 
       <div class="hero-meta">
@@ -113,10 +117,6 @@
         <div>
           <p class="k">Studying</p>
           <p class="v">Design &amp; business<br>@ university of waterloo</p>
-        </div>
-        <div>
-          <p class="k">Open to</p>
-          <p class="v">Summer 2027<br>internships</p>
         </div>
       </div>
     </section>

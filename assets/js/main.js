@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Header: "Charlene Lee" → c·l·l (left of the bar), "• Contact" → Contact (right)
+// Header: "Charlene Lee" → c·l·l (left of the bar), "Let's connect →" → Contact (right)
 //
 // Home page: both start in the hero (over .name-slot / .contact-slot) and scroll
 // like normal content. Once one gets within LANDING_ZONE px of its spot in the bar,
@@ -18,7 +18,8 @@
   const inner = header.querySelector(".header-inner");
   const logo = header.querySelector("[data-logo]");
   const contact = header.querySelector("[data-contact]");
-  const dot = contact.querySelector(".contact-dot");
+  const cLong = contact.querySelector(".c-long");
+  const cShort = contact.querySelector(".c-short");
   const svg = logo.querySelector("svg");
   const nameSlot = document.querySelector("[data-name-slot]");
   const contactSlot = document.querySelector("[data-contact-slot]");
@@ -123,7 +124,9 @@
 
     const C = place(G.contactStart, G.contactEnd);
     contact.style.transform = `translate(${C.x}px, ${C.y}px)`;
-    dot.style.opacity = 1 - range(C.p, 0, 0.6);
+    // "Let's connect →" crossfades to "Contact" as it lands
+    cLong.style.opacity = 1 - range(C.p, 0.1, 0.6);
+    cShort.style.opacity = range(C.p, 0.4, 0.9);
   }
 
   let ticking = false;
